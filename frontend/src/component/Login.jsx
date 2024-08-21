@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Api from "../axiosConfig";
 import { AuthContext } from "../context/auth.context";
+import "../style/Login.css";
 
 const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -20,17 +21,10 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // api call to backend
     try {
       if (userData.email && userData.password) {
         const response = await Api.post("/auth/login", { userData });
-        // const response = {
-        //   data: {
-        //     success: true,
-        //     message: "Login successfull.",
-        //     userData: { name: "Awdiz" },
-        //   },
-        // };
+       
         if (response.data.success) {
           dispatch({ type: "LOGIN", payload: response.data.userData });
           setUserData({
@@ -52,35 +46,42 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="loginmaindiv">
       <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        <label>Email : </label>
+    
+      <h1 className="titlelogin">Instagram</h1>
+        
         <br />
         <input
+          className="inputslogin"
           type="email"
           onChange={handleChange}
           name="email"
           value={userData.email}
+          placeholder="Email"
         />
-        <br />
-        <label>Password : </label>
+        
+
         <br />
         <input
+          className="inputslogin"
           type="password"
           onChange={handleChange}
           name="password"
           value={userData.password}
+          placeholder="password"
         />
         <br />
-        <input type="submit" value="Login" />
+        <input type="submit" value="Login" className="Singupforlogin" />
         <br />
       </form>
-      <button onClick={() => router("/register")}>Register ?</button>
-      <button onClick={() => router("/register-admin")}>
-        Admin Register ?
-      </button>
-      <button onClick={() => router("/login-admin")}>Admin Login ?</button>
+      <div className="registertext">
+         <p> Don't have an account? </p>
+      <button className="registertext1" onClick={() => router("/register")}>Sign up</button>
+
+      </div>
+      
+      <p className="forgot-password">Forgot Password?</p>
     </div>
   );
 };

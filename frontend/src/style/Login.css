@@ -1,12 +1,12 @@
-.maindiv{
+.loginmaindiv{
     width: 25%;
     height: 540px;
-    border: 1px solid rgb(177, 176, 176);
+    border: 1px solid rgb(39, 36, 36);
     margin:auto;
     margin-top: 20px;
 }
 
-.titlediv{  
+.titlelogin{  
     width: 80%;
     height: 90px;
     margin: auto;
@@ -17,44 +17,28 @@
    font-style: normal;
     font-size:60px ;
   }
-  .seetext{
-    width: 80%;
-    height: 70px;
-    margin: auto;
-    font-weight: 500;
-    color: rgb(116, 117, 117);
-    /* border: 2px solid black; */
-    border-bottom: 1px solid rgb(179, 182, 182);
-  }
-  .inputs{
-    width: 80%;
-    height: 30px;
-    margin-bottom: 10px;
-    border: 1px solid rgb(196, 192, 192);
-  }
 
-  .Singup{
+  .Singupforlogin{
     width: 82%;
-    height: 40px;
+    height: 35px;
     border: 1px solid rgb(196, 192, 192);
     color: white;
     font-size: 15px;
     background-color: #4cb5f9;
     border-radius: 15px;
   }
-  .people{
 
+  .inputslogin{
     width: 80%;
-    height: 40px;
-    padding-top: 10px;
-    font-size: 12px;
-    margin: auto;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(196, 192, 192);
   }
 
-  .logintext{
+  .registertext{
    
     width: 82%;
-    height: 40px;
+    height: 30px;
     margin: auto;
     /* border: 1px solid rgb(196, 192, 192); */
     display: flex;
@@ -62,8 +46,7 @@
     padding-bottom: 20px;
   }
 
-  
-  .logintext > p{
+  .registertext > p{
    
     width: 60%;
     height: 20px;
@@ -71,7 +54,7 @@
     /* border: 1px solid rgb(170, 9, 9); */
   }
   
-  .logintext1{
+  .registertext1{
    
     width: 30%;
     height: 20px;
@@ -82,4 +65,11 @@
     padding-right: 20px;
     margin-top: 18px;
     border: none;
+  }
+
+  .forgot-password{
+    width: 80%;
+    height: 20px;
+    margin: auto;
+    /* border: 1px solid rgb(170, 9, 9); */
   }

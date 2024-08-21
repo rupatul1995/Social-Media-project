@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Api from "../axiosConfig";
-import "../style/Register.css"
+import "../style/Register.css";
 
 
 
@@ -12,7 +12,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    Username:"",
+    username:"",
   });
   const [errors, setErrors] = useState([]);
   console.log(errors, "errors");
@@ -25,14 +25,14 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      if (userData.name && userData.email && userData.password && userData.Username ) {
+      if (userData.name && userData.email && userData.password && userData.username ) {
         const response = await Api.post("/auth/register", { userData });
         if (response.data.success) {
           setUserData({
             name: "",
             email: "",
             password: "",
-            Username:"",
+            username:"",
           });
           router("/login");
           toast.success(response.data.message);
@@ -51,7 +51,6 @@ const Register = () => {
     <div className="maindiv">
       <form onSubmit={handleSubmit}>
        
-
        <h1 className="titlediv">Instagram</h1>
        <p className="seetext">Sign up to see photos and videos from your friends. </p>
 
@@ -69,7 +68,7 @@ const Register = () => {
           type="text"
           onChange={handleChange}
           name="username"
-          value={userData.Username}
+          value={userData.username}
           placeholder="Username"
         />
         <br />
@@ -99,10 +98,14 @@ const Register = () => {
             ))}
           </div>
         )}
-        <input type="submit" value="Register" />
+        <input type="submit" value="Sign up" className="Singup"/>
         <br />
-        <p>People who use our service may have uploaded your contact information to Instagram. Learn More</p>
-
+        <p className="people">People who use our service may have uploaded your contact information to Instagram. Learn More</p>
+         
+         <div className="logintext">
+         <p>Have an account? </p>
+         <button className="logintext1" onClick={() => router("/login")}>Log in</button>
+         </div>
       </form>
     </div>
   );

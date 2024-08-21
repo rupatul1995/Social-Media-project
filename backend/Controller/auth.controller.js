@@ -9,7 +9,7 @@ export const Login = async (req, res) => {
       return res.json({ success: false, error: "All fields are required." });
     }
 
-    const isUserExists = await User.findOne({ email: email });
+    const isUserExists = await User.findOne({ email: email  });
     if (!isUserExists) {
       return res.json({ success: false, error: "Email not found." });
     }
@@ -47,11 +47,11 @@ export const Login = async (req, res) => {
 
 export const Register = async (req, res) => {
   try {
-    const { name, email, password } = req.body.userData;
-    if (!name || !email || !password) {
+    const { name, email, password,username } = req.body.userData;
+    if (!name || !email || !password || !username) {
       return res.json({ success: false, error: "All fields are required." });
     }
-    const isEmailExist = await User.findOne({ email: email });
+    const isEmailExist = await User.findOne({ email: email , username:username});
     console.log(isEmailExist, "isEmailExist");
     if (isEmailExist) {
       return res.json({
@@ -64,6 +64,7 @@ export const Register = async (req, res) => {
 
     const newUser = new User({
       name: name,
+      username:username,
       email: email,
       password: encryptedPassword,
     });
@@ -72,7 +73,7 @@ export const Register = async (req, res) => {
 
     return res.json({
       success: true,
-      message: "Registeration Successfull for user.",
+      message: " Successfull Sing up.",
     });
   } catch (error) {
     console.log(error, "error");
