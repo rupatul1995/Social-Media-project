@@ -1,0 +1,33 @@
+.maindiv{
+    width: 25%;
+    height: 500px;
+    border: 1px solid rgb(97, 96, 96);
+    margin:auto;
+}
+
+.titlediv{  
+    width: 80%;
+    height: 90px;
+    margin: auto;
+    margin-top: 20px;
+    border: 2px solid black;
+    font-family: "Cookie", cursive;
+    font-weight: 400;
+   font-style: normal;
+    font-size:60px ;
+  }
+  .seetext{
+    width: 80%;
+    height: 70px;
+    margin: auto;
+    font-weight: 500;
+    color: rgb(116, 117, 117);
+    border: 2px solid black;
+    border-bottom: 1px solid rgb(116, 117, 117);
+  }
+  .inputs{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(128, 126, 126);
+  }

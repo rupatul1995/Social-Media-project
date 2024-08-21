@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Api from "../axiosConfig";
+import "../style/Register.css"
 
 
 
@@ -11,9 +12,9 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    Username:"",
   });
   const [errors, setErrors] = useState([]);
-  const [disable, setDisable] = useState(true);
   console.log(errors, "errors");
 
   console.log(userData, "userData");
@@ -24,13 +25,14 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      if (userData.name && userData.email && userData.password) {
+      if (userData.name && userData.email && userData.password && userData.Username ) {
         const response = await Api.post("/auth/register", { userData });
         if (response.data.success) {
           setUserData({
             name: "",
             email: "",
             password: "",
+            Username:"",
           });
           router("/login");
           toast.success(response.data.message);
@@ -44,54 +46,50 @@ const Register = () => {
     }
   }
 
-  useEffect(() => {
-    const errorsArray = [];
-    if (!userData.name) {
-      errorsArray.push("Name is required.");
-    }
-    if (!userData.email) {
-      errorsArray.push("Email is required.");
-    }
-    if (!userData.password) {
-      errorsArray.push("Password is required.");
-    }
-    setErrors(errorsArray);
-    if (errorsArray.length === 0) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  }, [userData]);
-
+ 
   return (
-    <div>
+    <div className="maindiv">
       <form onSubmit={handleSubmit}>
-        <h1>Register</h1>
-        <label>Name : </label>
-        <br />
-        <input
+       
+
+       <h1 className="titlediv">Instagram</h1>
+       <p className="seetext">Sign up to see photos and videos from your friends. </p>
+
+       <br />
+       <input className="inputs"
           type="text"
           onChange={handleChange}
           name="name"
           value={userData.name}
+          placeholder="Full Name"
+        />
+    
+        <br />
+        <input className="inputs"
+          type="text"
+          onChange={handleChange}
+          name="username"
+          value={userData.Username}
+          placeholder="Username"
         />
         <br />
-        <label>Email : </label>
-        <br />
         <input
+          className="inputs"
           type="email"
           onChange={handleChange}
           name="email"
           value={userData.email}
+          placeholder="Email"
         />
         <br />
-        <label>Password : </label>
-        <br />
+
         <input
+          className="inputs"
           type="password"
           onChange={handleChange}
           name="password"
           value={userData.password}
+          placeholder="Password"
         />
         <br />
         {errors.length > 0 && (
@@ -101,8 +99,10 @@ const Register = () => {
             ))}
           </div>
         )}
-        <input disabled={disable} type="submit" value="Register" />
+        <input type="submit" value="Register" />
         <br />
+        <p>People who use our service may have uploaded your contact information to Instagram. Learn More</p>
+
       </form>
     </div>
   );
