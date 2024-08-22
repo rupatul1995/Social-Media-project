@@ -28,7 +28,7 @@ function Home() {
   return (
     <div>
       <h1>All Posts</h1>
-      {loading ? (
+      {loading ?  (
         <div>
           <h1>Loading...</h1>
          
