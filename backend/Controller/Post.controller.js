@@ -1,4 +1,4 @@
-import Post from "../Model/Post.model.js";
+import Post from "../Model/Post.model.js"
 
 export const AllPosts = async (req, res) => {
   try {
@@ -10,18 +10,26 @@ export const AllPosts = async (req, res) => {
 };
 
 
-export const NewPost = async (req, res) => {
+export const NewPosts = async (req, res) => {
   try {
-    const { image ,caption} = req.body.postData;
+    const {  image , caption} = req.body.postData;
     const { userId } = req.body;
-    if ( !image || !caption || !userId ) {
+    if (!image || !caption  ) {
       return res.json({ success: false, error: "All fields are required." });
     }
-    
-
-    const newPost = new Post({
+    const isPostExist = await Post.findOne({
       image,
       caption,
+      creatorId: userId,
+    });
+    if (isPostExist) {
+      return res.json({ success: false, error: "post is already exists." });
+    }
+
+    const newPost = new Post({
+     
+      image:image,
+      caption:caption,
       creatorId: userId,
     });
     await newPost.save();
@@ -33,7 +41,6 @@ export const NewPost = async (req, res) => {
     return res.json({ error: error, success: false });
   }
 };
-
 
 
 
