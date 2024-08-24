@@ -34,9 +34,9 @@ const AddPost = () => {
         if (response.data.success) {
           setPosttData({
             image: "",
-            caption:""
+            caption:"",
           });
-          router("/all-post");
+          router("/");
           toast.success(response.data.message);
         }
       } else {
@@ -71,24 +71,24 @@ const AddPost = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h1>Add New Product</h1>
-        <label>Image url : : </label>
+        <h1>Add New Post</h1>
+        
         <br />
         <input
           type="url"
           onChange={handleChange}
           name="image"
           value={postData.image}
+          placeholder="Image"
         />
-        <br />
       
-        <label>caption </label>
         <br />
         <input
           type="text"
           onChange={handleChange}
           name="caption"
           value={postData.caption}
+          placeholder="caption"
         />
         <br />
         {errors.length > 0 && (
@@ -98,7 +98,7 @@ const AddPost = () => {
             ))}
           </div>
          )}
-        <input disabled={disable} type="submit" value="Add" />
+        <input disabled={disable} type="submit" value="Add Post" />
         <br />
       </form>
     </div>

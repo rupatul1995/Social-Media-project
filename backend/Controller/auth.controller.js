@@ -24,6 +24,7 @@ export const Login = async (req, res) => {
     }
     const userData = {
       name: isUserExists.name,
+      username: isUserExists.username,
       email: isUserExists.email,
       role: "user",
       userId : isUserExists._id
@@ -51,12 +52,21 @@ export const Register = async (req, res) => {
     if (!name || !email || !password || !username) {
       return res.json({ success: false, error: "All fields are required." });
     }
-    const isEmailExist = await User.findOne({ email: email , username:username});
+    const isEmailExist = await User.findOne({ email: email });
     console.log(isEmailExist, "isEmailExist");
     if (isEmailExist) {
       return res.json({
         success: false,
         error: "Email is exists, please use another one.",
+      });
+    }
+
+    const isUserNameExist = await User.findOne({  username:username});
+    console.log(isUserNameExist, "isUserNameExist");
+    if (isUserNameExist) {
+      return res.json({
+        success: false,
+        error: "UserName is exists, please use another one.",
       });
     }
 
@@ -93,6 +103,7 @@ export const getCurrentUser = async (req, res) => {
       }
       const userData = {
         name: user.name,
+        username: user.username,
         email: user.email,
         role: "user",
         userId: user._id,
