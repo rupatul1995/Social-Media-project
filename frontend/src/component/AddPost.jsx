@@ -13,8 +13,6 @@ const AddPost = () => {
     image: "",
     caption:"",
   });
-  const [errors, setErrors] = useState([]);
-  const [disable, setDisable] = useState(true);
   function handleChange(event) {
     setPosttData({ ...postData, [event.target.name]: event.target.value });
    
@@ -48,25 +46,6 @@ const AddPost = () => {
     }
   }
 
-  useEffect(() => {
-    const errorsArray = [];
-    
-    if (!postData.image) {
-      errorsArray.push("Image is required.");
-    }
-
-    
-    if (!postData.caption) {
-      errorsArray.push("caption is required.");
-    }
-    setErrors(errorsArray);
-    if (errorsArray.length == 0) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  }, [postData]);
-
  
   return (
     <div>
@@ -91,14 +70,8 @@ const AddPost = () => {
           placeholder="caption"
         />
         <br />
-        {errors.length > 0 && (
-          <div>
-            {errors.map((error, i) => (
-              <p key={i}>{error}*</p>
-            ))}
-          </div>
-         )}
-        <input disabled={disable} type="submit" value="Add Post" />
+       
+        <input  type="submit" value="Add Post" />
         <br />
       </form>
     </div>

@@ -21,6 +21,7 @@ export const NewPosts = async (req, res) => {
       image,
       caption,
       creatorId: userId,
+      // creatorname:
     });
     if (isPostExist) {
       return res.json({ success: false, error: "post is already exists." });
