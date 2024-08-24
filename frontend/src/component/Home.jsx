@@ -31,7 +31,7 @@ function Home() {
     try {
         const response = await Api.post("/auth/logout");
         if (response.data.success) {
-            dispatch({ type: "LOGOUT" });
+            dispatch ({ type: "LOGOUT" });
             router("/login");
             toast.success(response.data.message);
         } else {
@@ -164,10 +164,12 @@ function Home() {
               
               onClick={() => router(`/post/${posts._id}`)}
             >
+              <p>{state?.user?.username}</p>
               <img className="postimagesize"
                
                 src={posts.image}
               />
+              <video/>
               <p> {posts.caption}</p>
               <inpute 
               type="text"
