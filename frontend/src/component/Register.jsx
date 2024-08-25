@@ -14,8 +14,6 @@ const Register = () => {
     password: "",
     username:"",
   });
-  const [errors, setErrors] = useState([]);
-  console.log(errors, "errors");
 
   console.log(userData, "userData");
   function handleChange(event) {
@@ -91,13 +89,7 @@ const Register = () => {
           placeholder="Password"
         />
         <br />
-        {errors.length > 0 && (
-          <div>
-            {errors.map((error, i) => (
-              <p key={i}>{error}*</p>
-            ))}
-          </div>
-        )}
+       
         <input type="submit" value="Sign up" className="Singup"/>
         <br />
         <p className="people">People who use our service may have uploaded your contact information to Instagram. Learn More</p>

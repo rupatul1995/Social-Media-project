@@ -256,12 +256,16 @@
     height: 80%;
 }
 
-
-
-
 .SuggestDiv{
     
     width: 20%;
     height: 600px;
+    border: 2px solid black;
+}
+
+.logoutbutton{
+    
+    width: 20%;
+    height: 20px;
     border: 2px solid black;
 }

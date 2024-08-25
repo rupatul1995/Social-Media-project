@@ -17,7 +17,7 @@ function Home() {
   async function GetPosts() {
     setLoading(true);
     try {
-      const response = await Api.get("/post/all-post"); 
+      const response = await Api.get("/post/all-posts"); 
       if (response.data.success) {
         setLoading(false);
         setAllPosts(response.data.posts); 
@@ -35,7 +35,7 @@ function Home() {
             router("/login");
             toast.success(response.data.message);
         } else {
-            toast.error("Logout failed.");
+            toast.error( "Logout failed.");
         }
     } catch (error) {
         toast.error("Failed to logout.");
@@ -149,8 +149,8 @@ function Home() {
 
 
 
-{/*     
-    <button onClick={handleLogout}>Logout</button> */}
+    
+    <button onClick={handleLogout} className="logoutbutton">Logout</button>
       {loading ?  (
         <div className="instagramlogo">
          
@@ -164,12 +164,11 @@ function Home() {
               
               onClick={() => router(`/post/${posts._id}`)}
             >
-              <p>{state?.user?.username}</p>
+              {/* <p>{state?.user?.username}</p> */}
               <img className="postimagesize"
                
-                src={posts.image}
+                src={posts.image} alt={posts.caption}
               />
-              <video/>
               <p> {posts.caption}</p>
               <inpute 
               type="text"
@@ -183,7 +182,10 @@ function Home() {
       <div className="SuggestDiv">
         
     <h1>UserName:-{state?.user?.username}</h1>
+
          <h1>Suggested for you</h1>
+         <label>usernames following</label>
+         <p> {posts.creatorId.username} </p>
       </div>
 
 
