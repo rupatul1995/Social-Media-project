@@ -1,14 +1,14 @@
-import { Router } from "express";
-import { getCurrentUser, Login,  Register ,Logout} from "../Controller/auth.controller.js";
+// import { Router } from "express";
+// import { getCurrentUser, Login,  Register ,Logout} from "../Controller/auth.controller.js";
 
-const router = Router();
+// const router = Router();
 
-router.post("/register", Register);
-router.post("/login", Login);
+// router.post("/register", Register);
+// router.post("/login", Login);
 
-// router.post("/follow", Follow);
-router.get('/get-current-user', getCurrentUser)
+// // router.post("/follow", Follow);
+// router.get('/get-current-user', getCurrentUser)
 
-router.post("/logout", Logout);
+// router.post("/logout", Logout);
 
-export default router;
+// export default router;

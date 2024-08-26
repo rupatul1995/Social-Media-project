@@ -1,44 +1,44 @@
-import Post from "../Model/Post.model.js"
+// import Post from "../Model/Post.model.js"
 
-export const AllPosts = async (req, res) => {
-  try {
-    const posts = await Post.find({}).populate('creatorId', 'username');
-    res.json({ success: true, posts });
-  } catch (error) {
-    return res.json({ error, success: false });
-  }
-};
+// export const AllPosts = async (req, res) => {
+//   try {
+//     const posts = await Post.find({}).populate('creatorId', 'username');
+//     res.json({ success: true, posts });
+//   } catch (error) {
+//     return res.json({ error, success: false });
+//   }
+// };
 
 
-export const NewPosts = async (req, res) => {
-  try {
-    const {  image , caption} = req.body.postData;
-    const { userId } = req.body;
-    if (!image || !caption ) {
-      return res.json({ success: false, error: "All fields are required." });
-    }
-    const newPost = new Post({
-      image: image,
-      caption: caption,
-      creatorId: userId,
-    });
-    await newPost.save();
-    return res.json({ success: true, message: "Post created successfully." });
-  } catch (error) {
-    return res.json({ error: error.message, success: false });
-  }
-};
+// export const NewPosts = async (req, res) => {
+//   try {
+//     const {  image , caption} = req.body.postData;
+//     const { userId } = req.body;
+//     if (!image || !caption ) {
+//       return res.json({ success: false, error: "All fields are required." });
+//     }
+//     const newPost = new Post({
+//       image: image,
+//       caption: caption,
+//       creatorId: userId,
+//     });
+//     await newPost.save();
+//     return res.json({ success: true, message: "Post created successfully." });
+//   } catch (error) {
+//     return res.json({ error: error.message, success: false });
+//   }
+// };
 
-export const Profile = async (req, res) => {
-  try {
-    const { userId } = req.body;
-    const posts = await Post.find({ creatorId: userId });
-    return res.json({ success: true, products });
-  } catch (error) {
-    console.log(error, "error");
-    return res.json({ error: error, success: false });
-  }
-};
+// export const Profile = async (req, res) => {
+//   try {
+//     const { userId } = req.body;
+//     const posts = await Post.find({ creatorId: userId });
+//     return res.json({ success: true, products });
+//   } catch (error) {
+//     console.log(error, "error");
+//     return res.json({ error: error, success: false });
+//   }
+// };
 
 
 //     const isPostExist = await Post.findOne({
