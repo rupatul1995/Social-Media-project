@@ -29,6 +29,17 @@ export const NewPosts = async (req, res) => {
   }
 };
 
+export const Profile = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const posts = await Post.find({ creatorId: userId });
+    return res.json({ success: true, products });
+  } catch (error) {
+    console.log(error, "error");
+    return res.json({ error: error, success: false });
+  }
+};
+
 
 //     const isPostExist = await Post.findOne({
 //       image,

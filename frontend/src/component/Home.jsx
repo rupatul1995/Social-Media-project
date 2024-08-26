@@ -57,7 +57,8 @@ function Home() {
      <i class="fa-solid fa-house"></i>
      </div>
      <div className="Home2">
-      <p>Home</p>
+      <p onClick={() => router("/")}>Home
+      </p>
      </div>
      </div>
     
@@ -119,7 +120,7 @@ function Home() {
       
      </div>
      <div className="Create2">
-      <p>Create</p>
+      <p onClick={() => router("/add-post")}>Create</p>
      </div>
      </div>
 
@@ -145,6 +146,17 @@ function Home() {
       <p>More</p>
      </div>
      </div>
+
+     <div className="logout">
+     <div className="logout1">
+     <i class="fa-regular fa-user"></i>
+      
+     </div>
+     <div className="logout2">
+      <p>Logout</p>
+     </div>
+     </div>
+
       </div>
 
 
@@ -185,7 +197,6 @@ function Home() {
 
          <h1>Suggested for you</h1>
          <label>usernames following</label>
-         <p> {posts.creatorId.username} </p>
       </div>
 
 
