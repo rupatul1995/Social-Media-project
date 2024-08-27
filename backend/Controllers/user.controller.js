@@ -7,27 +7,19 @@ import getDataUri from "../utils/datauri.js";
 
 export const Register = async (req, res) => {
     try {
-      const { username, email, password} = req.body.userData;
+      const { username, email, password} = req.body;
       if (!username || !email || !password  ) {
-        return res.json({ success: false, message: "All fields are required." });
+        return res.json({  message: "something is missing, please check!." ,success: false});
       }
-      const user = await User.findOne({ email: email });
-      console.log(user, "user");
-      if (user) {
+      const isEmailExist = await User.findOne({ email });
+      console.log(isEmailExist, "isEmailExist");
+      if (isEmailExist) {
         return res.json({
           success: false,
           error: "Email is exists, please use another one.",
         });
       }
-  
-      const isUserName = await User.findOne({  username:username});
-      console.log(isUserNameExist, "isUserNameExist");
-      if (isUserNameExist) {
-        return res.json({
-          success: false,
-          error: "UserName is exists, please use another one.",
-        });
-      }
+      // encrypt the password then store it in mongodb
   
       const encryptedPassword = await bcrypt.hash(password, 10);
   
@@ -41,7 +33,7 @@ export const Register = async (req, res) => {
   
       return res.json({
         success: true,
-        message: " Successfully Sing up.",
+        message: "Registeration Successfull.",
       });
     } catch (error) {
       console.log(error, "error");
@@ -49,13 +41,61 @@ export const Register = async (req, res) => {
     }
   };
   
+//       const user = await User.findOne({ email });
+//       if (user) {
+//         return res.json({
+//           error: "Email is exists, please use another one.",
+//           success: false,
+//         });
+//       }
+// const hashedPassword = await bcrypt.hash(password ,10);
+//       await User.create({
+//         username,
+//         email,
+//         password:hashedPassword
+//       });
+//       return res.json({
+//         error: "Accound created successfully.",
+//         success: true
+//       });
+
+//     } catch (error) {
+//       console.log(error, "error");
+//       return res.json({ error: error, success: false });
+//     }
+//   };
+  
+      // const isUserName = await User.findOne({  username:username});
+      // console.log(isUserName, "isUserName");
+      // if (isUserName) {
+      //   return res.json({
+      //     success: false,
+      //     error: "UserName is exists, please use another one.",
+      //   });
+      // }
+  
+      // const encryptedPassword = await bcrypt.hash(password, 10);
+  
+      // const newUser = new User({
+      //   username:username,
+      //   email: email,
+      //   password: encryptedPassword,
+      // });
+  
+      // const responseFromDb = await newUser.save();
+  
+      // return res.json({
+      //   success: true,
+      //   message: " Successfully Sing up.",
+      // });
+    
 
 
 export const Login= async (req ,res)=>{
     try {
         const{email ,password}= req.body;
         if(!email || !password){
-            return res.json ({ message:"All fields are required" ,success:false,});
+            return res.json ({ message: "something is missing, please check!." ,success:false,});
     }
     let user = await User.findOne({email});
     if(!user){
@@ -63,7 +103,7 @@ export const Login= async (req ,res)=>{
     }
     const isPasswordMatch =await bcrypt.compare(password , user.password);
     if(!isPasswordMatch){
-        return res.json({message:"Incorrect email or password"});
+        return res.json({message:"Incorrect email or password", success: false });
     }
 
 user ={
@@ -108,7 +148,7 @@ export const Logout = async (req, res) => {
   export const  getProfile = async (req ,res) =>{
     try {
         const userId = req.params.id;
-       let user= await User.findById(userId);
+       let user= await User.findById(userId).select('-password');
        return res.json({user ,success:true});
     } catch (error) {
         console.log(error ,"error");
@@ -128,13 +168,13 @@ export const Logout = async (req, res) => {
              cloudResponse = await cloudinary.uploader.upload(fileUri);
         }
 
-        const user= await User.findById(userId);
+        const user= await User.findById(userId).select("-password");
         if(!user){
-            return res.json({message: 'User not found.' ,success:false});
+            return res.json({message: 'User not found.' , success:false});
         }
 
-        if (bio)user.bio=bio;
-        if (profilePicture) user.profilePicture=cloudResponse.secure_url;
+        if(bio) user.bio = bio;
+        if(profilePicture) user.profilePicture=cloudResponse.secure_url;
         await user.save();
 
         return res.json({message: 'Profile updated.' ,success:true ,user});
@@ -151,7 +191,7 @@ export const Logout = async (req, res) => {
         if(!SuggestedUsers){
          return res.json({message:'Currently do not have any users'})
         };
-        return res.json({success:true , users:suggestedUsers})
+        return res.json({success:true , users:SuggestedUsers})
         
     } catch (error) {
         console.log(error ,"error");
@@ -159,11 +199,12 @@ export const Logout = async (req, res) => {
   }
 
 
+
   export const followOrUnfollow =async (req ,res)=>{
     try {
-        const followkarnewala=req.id;
-        const jiskofollowKrunga =req.params.id;
-        if(followkarnewala=== jiskofollowKrunga){
+        const followkarnewala = req.id;
+        const jiskofollowKrunga = req.params.id;
+        if(followkarnewala === jiskofollowKrunga){
             return res.json({message:"You cannot follow/unfollow yourself" , success:false });
         }
         const user =await User.findById(followkarnewala);
@@ -179,13 +220,13 @@ export const Logout = async (req, res) => {
                 User.updateOne({_id:followkarnewala},{$pull:{following:jiskofollowKrunga}}),
                 User.updateOne({_id:jiskofollowKrunga},{$pull:{followers:followkarnewala}}),
             ])
-        
+            return res.json({ message: "Unfollowed successfully" ,success:true});
         }else{
             await Promise.all([
                 User.updateOne({_id:followkarnewala},{$push:{following:jiskofollowKrunga}}),
                 User.updateOne({_id:jiskofollowKrunga},{$push:{followers:followkarnewala}}),
             ]);
-            return res.json({ message: "Unfollowed successfully" ,success:true});
+            return res.json({ message: "followed successfully" ,success:true});
         }
     } catch (error) {
         console.log(error, "error");

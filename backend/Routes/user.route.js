@@ -11,7 +11,7 @@ router.get("/logout", Logout);
 router.get('/:id/profile', isAuthenticated , getProfile);
 router.post("/profile/edit", isAuthenticated , upload.single('profilePicture') , editProfile);
 router.get("/suggested", isAuthenticated , getSuggestedUsers);
-router.get("/followorunfollow/:id", isAuthenticated , followOrUnfollow);
+router.post("/followorunfollow/:id", isAuthenticated , followOrUnfollow);
 
 
 export default router;
