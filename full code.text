@@ -202,96 +202,105 @@ export const Logout = async (req, res) => {
 
 
 
-  export const followOrUnfollow = async (req, res) => {
+  export const followOrUnfollow =async (req ,res)=>{
     try {
-        const followerId = req.id; // ID of the user performing the action
-        const targetId = req.params.id; // ID of the user to follow or unfollow
+        const followkarnewala = req._id;
+        const jiskofollowKrunga = req.params._id;
+        if(followkarnewala == jiskofollowKrunga){
+            return res.json({message:"You cannot follow/unfollow yourself" , success:false });
+        }
+        const user =await User.findById(followkarnewala);
+        const targetUser =await User.findById(jiskofollowKrunga);
+        if(!user || !targetUser){
+            return res.json({ message:'user not found', success:false});
 
-        // Validate IDs
-        if (!followerId || !targetId) {
-            return res.json({ message: "Invalid user IDs", success: false });
         }
 
-        // Check if the followerId and targetId are the same
-        if (followerId === targetId) {
-            return res.json({ message: "You cannot follow/unfollow yourself", success: false });
-        }
-
-        // Find both the follower and target users
-        const follower = await User.findById(followerId);
-        const target = await User.findById(targetId);
-
-        // Check if both users exist
-        if (!follower) {
-            return res.json({ message: "Follower not found", success: false });
-        }
-        if (!target) {
-            return res.json({ message: "Target user not found", success: false });
-        }
-
-        // Check if the follower is already following the target user
-        const isFollowing = follower.following.includes(targetId);
-
-        if (isFollowing) {
-            // If already following, unfollow
+        const isFollowing= user.following.includes(jiskofollowKrunga);
+        if(isFollowing){
             await Promise.all([
-                User.updateOne({ _id: followerId }, { $pull: { following: targetId } }),
-                User.updateOne({ _id: targetId }, { $pull: { followers: followerId } })
-            ]);
-            return res.json({ message: "Unfollowed successfully", success: true });
-        } else {
-            // If not following, follow
+                User.updateOne({_id:followkarnewala},{$pull:{following:jiskofollowKrunga}}),
+                User.updateOne({_id:jiskofollowKrunga},{$pull:{followers:followkarnewala}}),
+            ])
+            return res.json({ message: "Unfollowed successfully" ,success:true});
+        }else{
             await Promise.all([
-                User.updateOne({ _id: followerId }, { $push: { following: targetId } }),
-                User.updateOne({ _id: targetId }, { $push: { followers: followerId } })
+                User.updateOne({_id:followkarnewala},{$push:{following:jiskofollowKrunga}}),
+                User.updateOne({_id:jiskofollowKrunga},{$push:{followers:followkarnewala}}),
             ]);
-            return res.json({ message: "Followed successfully", success: true });
+            return res.json({ message: "followed successfully" ,success:true});
         }
     } catch (error) {
         console.log(error, "error");
-        return res.json({ message: "An error occurred", success: false });
     }
-};
+  }
 
 
 
 
 
+import jwt from "jsonwebtoken";
+
+const isAuthenticated =async(req , res , next)=>{
+    try{
+        const token =req.cookies.token;
+        if(!token){
+            return res.json({message :'User not authenticated', success:false});
+        }
+
+        const decode = await jwt.verify(token , process.env.JWT_SECRET);
+        if(!decode){
+            return res.json({massege:"Invalid" ,success:false});
+        }
+        req.id =decode.userId;
+        next();
+    }catch(error){
+        console.log(error ,"error");
+
+    }
+}
+export default isAuthenticated;
 
 
-  // export const followOrUnfollow =async (req ,res)=>{
-  //   try {
-  //       const followkarnewala = req._id;
-  //       const jiskofollowKrunga = req.params._id;
-  //       if(followkarnewala == jiskofollowKrunga){
-  //           return res.json({message:"You cannot follow/unfollow yourself" , success:false });
-  //       }
-  //       const user =await User.findById(followkarnewala);
-  //       const targetUser =await User.findById(jiskofollowKrunga);
-  //       if(!user || !targetUser){
-  //           return res.json({ message:'user not found', success:false});
+import multer from "multer";
 
-  //       }
+    const upload =multer({
+    storege:multer.memoryStorage(),
+ });
+ export default upload;
 
-  //       const isFollowing= user.following.includes(jiskofollowKrunga);
-  //       if(isFollowing){
-  //           await Promise.all([
-  //               User.updateOne({_id:followkarnewala},{$pull:{following:jiskofollowKrunga}}),
-  //               User.updateOne({_id:jiskofollowKrunga},{$pull:{followers:followkarnewala}}),
-  //           ])
-  //           return res.json({ message: "Unfollowed successfully" ,success:true});
-  //       }else{
-  //           await Promise.all([
-  //               User.updateOne({_id:followkarnewala},{$push:{following:jiskofollowKrunga}}),
-  //               User.updateOne({_id:jiskofollowKrunga},{$push:{followers:followkarnewala}}),
-  //           ]);
-  //           return res.json({ message: "followed successfully" ,success:true});
-  //       }
-  //   } catch (error) {
-  //       console.log(error, "error");
-  //   }
-  // }
+import mongoose  ,{ model, Schema } from "mongoose";
+
+const userSchema = new Schema({
+
+  username: { type: String, required: true , unique:true},
+  email: { type: String, required: true , unique:true},
+  password: { type: String, required: true },
+  profilePicture:{ type: String, default: "" },
+  bio:{type : String  ,default: ""},
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  posts:[{type:mongoose.Schema.ObjectId ,ref:"post"}],
+});
+
+const User = model("User", userSchema);
+
+export default User;
+
+import { Router } from "express";
+import { followOrUnfollow ,editProfile, getProfile, getSuggestedUsers, Login, Logout, Register } from "../Controllers/user.controller.js";
+import isAuthenticated from "../middlewares/isAuthenticated.js";
+import upload from "../middlewares/multer.js";
+
+const router = Router();
+
+router.post("/register", Register);
+router.post("/login", Login);
+router.get("/logout", Logout);
+router.get('/:id/profile', isAuthenticated , getProfile);
+router.post("/profile/edit", isAuthenticated , upload.single('profilePicture') , editProfile);
+router.get("/suggested", isAuthenticated , getSuggestedUsers);
+router.post("/followorunfollow/:id", isAuthenticated , followOrUnfollow);
 
 
-
-
+export default router;
