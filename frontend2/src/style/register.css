@@ -1,0 +1,85 @@
+.maindiv{
+    width: 25%;
+    height: 540px;
+    border: 1px solid rgb(177, 176, 176);
+    margin:auto;
+    margin-top: 20px;
+}
+
+.titlediv{  
+    width: 80%;
+    height: 90px;
+    margin: auto;
+    margin-top: 20px;
+    /* border: 2px solid black; */
+    font-family: "Cookie", cursive;
+    font-weight: 400;
+   font-style: normal;
+    font-size:60px ;
+  }
+  .seetext{
+    width: 80%;
+    height: 70px;
+    margin: auto;
+    font-weight: 500;
+    color: rgb(116, 117, 117);
+    /* border: 2px solid black; */
+    border-bottom: 1px solid rgb(179, 182, 182);
+  }
+  .inputs{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(196, 192, 192);
+  }
+
+  .Singup{
+    width: 82%;
+    height: 40px;
+    border: 1px solid rgb(196, 192, 192);
+    color: white;
+    font-size: 15px;
+    background-color: #4cb5f9;
+    border-radius: 15px;
+  }
+  .people{
+
+    width: 80%;
+    height: 40px;
+    padding-top: 10px;
+    font-size: 12px;
+    margin: auto;
+  }
+
+  .logintext{
+   
+    width: 82%;
+    height: 40px;
+    margin: auto;
+    /* border: 1px solid rgb(196, 192, 192); */
+    display: flex;
+    font-weight: 500;
+    padding-bottom: 20px;
+  }
+
+  
+  .logintext > p{
+   
+    width: 60%;
+    height: 20px;
+    font-size: 15px;
+    /* border: 1px solid rgb(170, 9, 9); */
+  }
+  
+  .logintext1{
+   
+    width: 30%;
+    height: 20px;
+    font-size: 15px;
+    color: #278996;
+    background-color: white;
+    /* border: 1px solid rgb(170, 9, 9); */
+    padding-right: 20px;
+    margin-top: 18px;
+    border: none;
+  }

@@ -1,0 +1,75 @@
+.loginmaindiv{
+    width: 25%;
+    height: 540px;
+    border: 1px solid rgb(39, 36, 36);
+    margin:auto;
+    margin-top: 20px;
+}
+
+.titlelogin{  
+    width: 80%;
+    height: 90px;
+    margin: auto;
+    margin-top: 20px;
+    /* border: 2px solid black; */
+    font-family: "Cookie", cursive;
+    font-weight: 400;
+   font-style: normal;
+    font-size:60px ;
+  }
+
+  .Singupforlogin{
+    width: 82%;
+    height: 35px;
+    border: 1px solid rgb(196, 192, 192);
+    color: white;
+    font-size: 15px;
+    background-color: #4cb5f9;
+    border-radius: 15px;
+  }
+
+  .inputslogin{
+    width: 80%;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(196, 192, 192);
+  }
+
+  .registertext{
+   
+    width: 82%;
+    height: 30px;
+    margin: auto;
+    /* border: 1px solid rgb(196, 192, 192); */
+    display: flex;
+    font-weight: 500;
+    padding-bottom: 20px;
+  }
+
+  .registertext > p{
+   
+    width: 60%;
+    height: 20px;
+    font-size: 15px;
+    /* border: 1px solid rgb(170, 9, 9); */
+  }
+  
+  .registertext1{
+   
+    width: 30%;
+    height: 20px;
+    font-size: 15px;
+    color: #278996;
+    background-color: white;
+    /* border: 1px solid rgb(170, 9, 9); */
+    padding-right: 20px;
+    margin-top: 18px;
+    border: none;
+  }
+
+  .forgot-password{
+    width: 80%;
+    height: 20px;
+    margin: auto;
+    /* border: 1px solid rgb(170, 9, 9); */
+  }
