@@ -1,0 +1,64 @@
+.create-post, .post-list, .user-posts {
+    margin: 20px;
+  }
+  
+  .create-post textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .create-post input[type="file"] {
+    margin-bottom: 10px;
+  }
+  
+  .create-post button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .create-post button:hover {
+    background-color: #0056b3;
+  }
+  
+  .post-list, .user-posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .post-card .post-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .post-card .post-author img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .post-card img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .post-card p {
+    margin: 10px 0;
+  }
