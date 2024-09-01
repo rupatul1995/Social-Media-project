@@ -1,14 +1,16 @@
 import { Router } from 'express';
-import CreatePost from '../../frontend2/src/component/CreatePost';
-import isAuthenticated from '../Middlewares/isAutheticated';
-import upload from '../Middlewares/multer';
-import { addNewPost, dislikePost, getAllPost, getUserPost, likePost } from '../Controllers/post.controller';
+import isAuthenticated from '../Middlewares/isAutheticated.js';
+import { addComment, addNewPost, deletePost, dislikePost, getAllPost, getCommentsOfPost, getUserPost, likePost } from '../Controllers/post.controller.js';
+import upload from '../Middlewares/multer.js';
 const router = Router();
 
-router.post('/New-Posts', createPost);
-// router.post("/addpost" ,isAuthenticated, upload.single('image'), addNewPost);
-router.get("/all", isAuthenticated,getAllPost);
-router.get("/userpost/all" ,isAuthenticated, getUserPost);
-// router.get("/:id/like" ,isAuthenticated, likePost);
-// router.get("/:id/dislike", isAuthenticated, dislikePost);
+router.route("/addpost").post(isAuthenticated, upload.single('image'), addNewPost);
+router.route("/all").get(isAuthenticated,getAllPost);
+router.route("/userpost/all").get(isAuthenticated, getUserPost);
+router.route("/:id/like").get(isAuthenticated, likePost);
+router.route("/:id/dislike").get(isAuthenticated, dislikePost);
+router.route("/:id/comment").post(isAuthenticated, addComment); 
+router.route("/:id/comment/all").post(isAuthenticated, getCommentsOfPost);
+router.route("/delete/:id").delete(isAuthenticated, deletePost);
+
 export default router;

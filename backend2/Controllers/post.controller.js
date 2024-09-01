@@ -1,9 +1,8 @@
 import sharp from "sharp";
 import cloudinary from "../utils/cloudinary.js";
-import { Post } from "../models/post.model.js";
-import { User } from "../models/user.model.js";
-import { Comment } from "../models/comment.model.js";
-import { getReceiverSocketId, io } from "../socket/socket.js";
+import { Post } from "../Models/post.model.js";
+import User  from "../Models/auth.model.js";
+import { Comment } from "../Models/comment.model.js";
 
 export const addNewPost = async (req, res) => {
     try {
@@ -11,7 +10,7 @@ export const addNewPost = async (req, res) => {
         const image = req.file;
         const authorId = req.id;
 
-        if (!image) return res.status(400).json({ message: 'Image required' });
+        if (!image) return res.json({ message: 'Image required' });
 
         // image upload 
         const optimizedImageBuffer = await sharp(image.buffer)
@@ -35,7 +34,7 @@ export const addNewPost = async (req, res) => {
 
         await post.populate({ path: 'author', select: '-password' });
 
-        return res.status(201).json({
+        return res.json({
             message: 'New post added',
             post,
             success: true,
