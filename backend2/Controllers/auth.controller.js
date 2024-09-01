@@ -107,28 +107,26 @@ export const Logout = async (req, res) => {
 };
 
 
-
 export const getCurrentUser = async (req, res) => {
   try {
     const token = req.cookies.token;
-    const data = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(data.userId);
-    if (!user) {
-      return res.json({ success: false, error: "User not found." });
-    }
-    const userData = {
-      _id:user._id,
-    username:user.username,
-    email:user.email,
-    profilePicture:user.profilePicture,
-    bio:user.bio,
-    followers:user.followers,
-    following:user.following,
-    posts:user.posts
-    };
-    return res.json({ success: true, userData });
+    // console.log(token, "token");
+    const data = await jwt.verify(token, process.env.JWT_SECRET);
+    console.log(data, "data");
+
+      const user = await User.findById(data?.userId);
+      if (!user) {
+        return res.json({ success: false });
+      }
+      const userData = {
+        name: user.name,
+        email: user.email,
+        role: "user",
+        userId: user._id,
+      };
+      return res.json({ success: true, userData });
+
   } catch (error) {
-    return res.json({ success: false, error: error.message });
+    return res.json({ success: false, error });
   }
 };
-

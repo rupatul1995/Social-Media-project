@@ -2,13 +2,13 @@
     width: 100%;
     
   height: 15000px;
-    border: 2px solid rgb(202, 21, 21);
+    /* border: 2px solid rgb(202, 21, 21); */
     display: flex;
 }
 
 .navbar {
   width: 20%;
-  height: 500px;
+  height: 650px;
   border: 2px solid rgb(36, 184, 68);
   margin-left: 20px;
   position: sticky;
@@ -19,7 +19,8 @@
 }
 .logo{
     width:"100%";
-    height: 70px;
+    height: 50px;
+    padding-top: 30px;
     /* margin-top: 40px; */
     /* margin-right: 20px; */
     padding-right: 90px;
@@ -32,9 +33,10 @@
 
 .Home{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Home1{
@@ -55,9 +57,10 @@
 
 .Search{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Search1{
@@ -78,9 +81,10 @@
 
 .Explore{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Explore1{
@@ -99,9 +103,10 @@
 
 .Reels{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Reels1{
@@ -121,9 +126,10 @@
 
 .Messages{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Messages1{
@@ -144,9 +150,10 @@
 
 .Notifications{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Notifications1{
@@ -166,10 +173,10 @@
 
 .Create{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
-   
+    padding-left: 15px;
 }
 .Create1{
     width:"40%";
@@ -188,9 +195,10 @@
 
 .Profile{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .Profile1{
@@ -211,9 +219,10 @@
 
 .More{
     width:"100%";
-    height: 40px;
-    border : 2px solid rgb(0, 0, 0);
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
     display: flex;
+    padding-left: 15px;
    
 }
 .More1{
@@ -232,20 +241,20 @@
 .instagramlogo{
     width:20%;
     height: 40px;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     background-image: url(https://www.google.com/imgres?q=instagram%20logo&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fe%2Fe7%2FInstagram_logo_2016.svg%2F2048px-Instagram_logo_2016.svg.png&imgrefurl=https%3A%2F%2Fen.m.wikipedia.org%2Fwiki%2FFile%3AInstagram_logo_2016.svg&docid=BlhHJijznkz2wM&tbnid=YRBTEJWs58dBaM&vet=12ahUKEwiY3JyD2ouIAxVOR2cHHdcVA1sQM3oECBoQAA..i&w=2048&h=2048&hcb=2&ved=2ahUKEwiY3JyD2ouIAxVOR2cHHdcVA1sQM3oECBoQAA);
 }
 
 .postMainDiv{
     width: 50%;
     height: 600px;
-    border: 2px solid rgb(15, 34, 206);
+    /* border: 2px solid rgb(15, 34, 206); */
 }
 
 .postimage{
     width:75%;
     height : 350px;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     margin: auto;
     margin-bottom: 20px;
     cursor: pointer;
@@ -260,12 +269,28 @@
     
     width: 20%;
     height: 600px;
-    border: 2px solid black;
+    /* border: 2px solid black; */
 }
 
-.logoutbutton{
-    
-    width: 20%;
-    height: 20px;
-    border: 2px solid black;
+.logout{
+    width:"100%";
+    height: 50px;
+    /* border : 2px solid rgb(0, 0, 0); */
+    display: flex;
+    padding-left: 15px; 
+   
 }
+.logout1{
+    width:"40%";
+    height: 40px;
+    /* border : 2px solid rgb(0, 0, 0); */
+    font-size: 22px;
+    padding-top: 12px;
+}
+.logout2{
+    width:"40%";
+    margin-left: 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+

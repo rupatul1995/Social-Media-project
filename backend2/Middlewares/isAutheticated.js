@@ -1,20 +1,24 @@
 import jwt from "jsonwebtoken";
+import User from "../Models/auth.model.js";
 
-
-const isAuthenticated = async (req,res,next)=>{
-    try {
-        const token = req.cookies.token;
-        if(!token){
-            return res.json({ message:'User not authenticated',success:false});
-        }
-        const decode = await jwt.verify(token, process.env.SECRET_KEY);
-        if(!decode){
-            return res.json({message:'Invalid', success:false });
-        }
-        req.id = decode.userId;
-        next();
-    } catch (error) {
-        console.log(error);
+export async function isAuthenticated(req, res, next) {
+  try {
+    // console.log("inside middleware");
+    const token = req.cookies.token;
+    // console.log(token, "token");
+    // console.log(process.env.JWT_SECRET, "process.env.JWT_SECRET");
+    const data = await jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(data,"data")
+    const user = await User.findById(data?.userId);
+    if (!user) {
+      return res.json({ success: false, error: "User not valid." });
     }
+    req.userId = data.userId;
+    next();
+  } catch (error) {
+    console.log(error, "error jere");
+    return res.json({ success: false, error });
+  }
 }
+
 export default isAuthenticated;
