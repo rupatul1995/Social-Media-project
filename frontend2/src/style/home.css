@@ -240,29 +240,29 @@
 }
 .instagramlogo{
     width:20%;
-    height: 40px;
+    height: 45px;
     /* border: 2px solid black; */
     background-image: url(https://www.google.com/imgres?q=instagram%20logo&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Fe%2Fe7%2FInstagram_logo_2016.svg%2F2048px-Instagram_logo_2016.svg.png&imgrefurl=https%3A%2F%2Fen.m.wikipedia.org%2Fwiki%2FFile%3AInstagram_logo_2016.svg&docid=BlhHJijznkz2wM&tbnid=YRBTEJWs58dBaM&vet=12ahUKEwiY3JyD2ouIAxVOR2cHHdcVA1sQM3oECBoQAA..i&w=2048&h=2048&hcb=2&ved=2ahUKEwiY3JyD2ouIAxVOR2cHHdcVA1sQM3oECBoQAA);
 }
 
 .postMainDiv{
-    width: 50%;
-    height: 600px;
-    /* border: 2px solid rgb(15, 34, 206); */
+    width: 55%;
+    border: 2px solid rgb(15, 34, 206);
 }
 
 .postimage{
-    width:75%;
-    height : 350px;
-    /* border: 2px solid black; */
+    width:80%;
+    height : 600px;
+    border: 2px solid black;
     margin: auto;
     margin-bottom: 20px;
     cursor: pointer;
 }
 
 .postimagesize{
-    width:95%;
-    height: 80%;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
 }
 
 .SuggestDiv{
@@ -294,3 +294,87 @@
     font-weight: 500;
 }
 
+.postHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profilePhoto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid black;
+}
+
+.username {
+    font-weight: bold;
+}
+
+
+.postimagesize {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    /* border: 2px solid black; */
+}
+
+.postFooter {
+    padding: 10px;
+    /* border: 2px solid black; */
+}
+
+.likeSection {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    /* border: 2px solid black; */
+}
+
+.likeSection i {
+    font-size: 22px;
+    margin-right: 5px;
+    /* border: 2px solid black; */
+}
+
+.likesCount {
+    font-size: 15px;
+    color: #888;
+    /* border: 2px solid black; */
+}
+
+.caption {
+    width: 100%;
+    height: 60px;
+    font-size: 14px;
+    border: 2px solid black;
+}
+
+.caption1 {
+    width: 50%;
+    height: 40px;
+    font-size: 14px;
+    /* padding-right: 200px; */
+    border: 2px solid black;
+
+}
+
+
+.SuggestDiv1{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;    
+}
+
+
+
+.SuggestDiv2{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid black;  
+}

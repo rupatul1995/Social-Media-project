@@ -168,13 +168,25 @@ const Home = () => {
               className="postimage"
               onClick={() => router(`/post/${post._id}`)}
             >
-                <div className="postHeader">
+
+            <div className="postHeader">
+                <img className="profilePhoto" src={post.author.profilePhoto}  />   
+               {/* alt={post.author.username} */}
                 <span className="username">{post.author.username}</span>
               </div>
+
               <img className="postimagesize" src={post.image} alt={post.caption} />
-              <p>{post.caption}</p>
-              {/* Add comment input if needed */}
+              <div className="postFooter">
+                <div className="likeSection">
+                  <i className="fa-regular fa-heart"></i>
+                  <span className="likesCount">{post.likes} likes</span>
+                </div>
+                <div className="caption">
+                <p className="caption1">{post.caption}</p>
+                </div>
+              </div>
             </div>
+
           ))}
         </div>
       )}
@@ -188,6 +200,11 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
 
 
 
