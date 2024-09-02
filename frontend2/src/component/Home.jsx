@@ -168,6 +168,9 @@ const Home = () => {
               className="postimage"
               onClick={() => router(`/post/${post._id}`)}
             >
+                <div className="postHeader">
+                <span className="username">{post.author.username}</span>
+              </div>
               <img className="postimagesize" src={post.image} alt={post.caption} />
               <p>{post.caption}</p>
               {/* Add comment input if needed */}

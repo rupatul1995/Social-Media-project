@@ -1,8 +1,11 @@
 import { Post } from '../Models/post.model.js';
 
+
 export const GetAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({}).populate('author', 'username'); // Populate author with username
+    const posts = await Post.find({})
+      .populate('author', 'username') // Populate author with username
+      .exec();
     res.json({ success: true, posts });
   } catch (error) {
     res.json({ error: error.message, success: false });

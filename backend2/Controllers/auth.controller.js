@@ -1,8 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../Models/auth.model.js";
-import getDataUri from "../utils/datauri.js";
-import cloudinary from "../utils/cloudinary.js";
 
 
 export const Login = async (req, res) => {
@@ -112,20 +110,20 @@ export const getCurrentUser = async (req, res) => {
     const token = req.cookies.token;
     // console.log(token, "token");
     const data = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log(data, "data");
-
+    {
       const user = await User.findById(data?.userId);
       if (!user) {
         return res.json({ success: false });
       }
       const userData = {
         name: user.name,
+        username:user.username,
         email: user.email,
         role: "user",
         userId: user._id,
       };
       return res.json({ success: true, userData });
-
+    }
   } catch (error) {
     return res.json({ success: false, error });
   }
