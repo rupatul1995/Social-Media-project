@@ -1,9 +1,13 @@
 .loginmaindiv{
     width: 25%;
     height: 540px;
-    border: 1px solid rgb(39, 36, 36);
+    /* border: 1px solid rgb(39, 36, 36); */
     margin:auto;
     margin-top: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    
 }
 
 .titlelogin{  
@@ -18,6 +22,7 @@
     font-size:60px ;
   }
 
+  
   .Singupforlogin{
     width: 82%;
     height: 35px;
@@ -26,13 +31,28 @@
     font-size: 15px;
     background-color: #4cb5f9;
     border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   }
+
+  .inputslogin:focus {
+    border-color: #007bff; /* Border color on focus */
+  }
+  
+  .Singupforlogin:hover {
+    background-color: #0056b3;
+    border-color: #0056b3; /* Change border color on hover */
+  }
+  
 
   .inputslogin{
     width: 80%;
-    height: 30px;
+    border: 2px solid #ddd;
+    height: 20px;
+    border-radius: 4px;
+  padding: 12px;
     margin-bottom: 10px;
-    border: 1px solid rgb(196, 192, 192);
+    /* border: 1px solid rgb(196, 192, 192); */
   }
 
   .registertext{
@@ -42,10 +62,12 @@
     margin: auto;
     /* border: 1px solid rgb(196, 192, 192); */
     display: flex;
+    border-radius: 4px;
+  cursor: pointer;
     font-weight: 500;
     padding-bottom: 20px;
   }
-
+ 
   .registertext > p{
    
     width: 60%;
@@ -59,17 +81,25 @@
     width: 30%;
     height: 20px;
     font-size: 15px;
-    color: #278996;
+    color: #007bff;
     background-color: white;
     /* border: 1px solid rgb(170, 9, 9); */
     padding-right: 20px;
     margin-top: 18px;
     border: none;
   }
+  .registertext1:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff; /* Change border color on hover */
+  }
 
   .forgot-password{
     width: 80%;
     height: 20px;
     margin: auto;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
     /* border: 1px solid rgb(170, 9, 9); */
   }

@@ -1,9 +1,11 @@
 .maindiv{
     width: 25%;
-    height: 540px;
+    height: 570px;
     border: 1px solid rgb(177, 176, 176);
     margin:auto;
     margin-top: 20px;
+    border-radius: 8px;
+    background: #fff;
 }
 
 .titlediv{  

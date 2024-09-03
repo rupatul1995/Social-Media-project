@@ -129,3 +129,28 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
+
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    // Fetch user profile details
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.json({ success: false, error: "User not found" });
+    }
+
+    // Fetch posts by the user
+    const posts = await Post.find({ author: userId });
+
+    return res.json({
+      success: true,
+      username: user.username,
+      name: user.name,
+      posts: posts
+    });
+  } catch (error) {
+    console.log(error, "error");
+    return res.json({ error: error.message, success: false });
+  }
+};
