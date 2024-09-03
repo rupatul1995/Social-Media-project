@@ -95,7 +95,7 @@ const Register = () => {
          
          <div className="logintext">
          <p>Have an account? </p>
-         <button className="logintext1" onClick={() => router("/login")}>Log in</button>
+         <button className="logintext1" onClick={() => router("/")}>Log in</button>
          </div>
       </form>
     </div>

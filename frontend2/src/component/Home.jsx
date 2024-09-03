@@ -191,7 +191,13 @@ const Home = () => {
         </div>
       )}
       <div className="SuggestDiv">
-        <h1> {state?.user?.username}</h1>
+        {/* <h1> {state?.user?.username}</h1> */}
+        <div className="postHeaderrightside">
+                <img className="profilePhoto"   />   
+                {/* src={post.author.profilePhoto} */}
+               {/* alt={post.author.username} */}
+                <span className="usernameright"> {state?.user?.username}</span>
+              </div>
         <h1>Suggested for you</h1>
         <label>usernames following</label>
       </div>

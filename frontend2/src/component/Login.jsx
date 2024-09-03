@@ -32,7 +32,7 @@ console.log(state, "state");
             email: "",
             password: "",
           });
-          router("/");
+          router("/home");
           toast.success(response.data.message);
         } else {
           toast.error(response?.data?.error);
