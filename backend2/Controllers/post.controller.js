@@ -1,5 +1,5 @@
 import { Post } from '../Models/post.model.js';
-
+import User from '../Models/auth.model.js';
 
 export const GetAllPosts = async (req, res) => {
   try {
@@ -33,6 +33,51 @@ export const CreateNewPost = async (req, res) => {
     res.json({ error: error.message, success: false });
   }
 };
+
+
+
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const post = await Post.find({ author: userId });
+    console.log(post);
+    return res.json({ success: true, post });
+  } catch (error) {
+    console.log(error, "error");
+    return res.json({ error: error, success: false });
+  }
+};
+
+
+// export const getUserProfile = async (req, res) => {
+//   try {
+//     const { userId } = req.params;
+//     const user = await User.findById(userId).populate('posts');
+
+//     if (!user) {
+//       return res.status(404).json({ success: false, error: 'User not found.' });
+//     }
+
+//     const userData = {
+//       name: user.name,
+//       username: user.username,
+//       posts: user.posts,
+//     };
+
+//     return res.json({ success: true, userData });
+//   } catch (error) {
+//     return res.status(500).json({ success: false, error: error.message });
+//   }
+// };
+
+
+
+
+
+
+
+
 
 
 // export const getUserPost = async (req, res) => {

@@ -123,7 +123,7 @@ const Home = () => {
    </div>
 
    
-   <div className="Profile">
+   <div className="Profile" onClick={() => router("/profile")}>
    <div className="Profile1">
    <i class="fa-regular fa-user"></i>
     
