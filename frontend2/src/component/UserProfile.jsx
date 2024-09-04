@@ -1,162 +1,149 @@
-// import React, { useContext, useEffect, useState } from "react";
-// import Api from "../axiosConfig";
-// import { AuthContext } from "../context/auth.context";
-
-// function UserProfile() {
-//   const [userData, setUserData] = useState(null);
-//   const [loading, setLoading] = useState(false);
-//   const { state } = useContext(AuthContext); // Context to get the current user or other relevant information
-
-//   async function GetUserProfile() {
-//     setLoading(true);
-//     try {
-//       const response = await Api.get("/post/profile", {
-//         userId: state?.user?.userId,
-//       }); // Fetch user profile data from the backend
-//       if (response.data.success) {
-//         setLoading(false);
-//         setUserData(response.data); // Assuming the data structure includes user profile info and posts
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       setLoading(false);
-//     }
-//   }
-
-//   useEffect(() => {
-//     if (state) {
-//       GetUserProfile(); // Fetch user profile data when component mounts
-//     }
-//   }, [state]);
-
-//   return (
-//     <div>
-//       <h1>User Profile</h1>
-//       {loading ? (
-//         <div>
-//           <h1>Loading...</h1>
-//           {/* Optional placeholder for loading state */}
-//         </div>
-//       ) : (
-//         userData && (
-//           <div>
-//             <h2>{userData.name}</h2>
-//             <h3>@{state?.user?.username}</h3>
-//             <div
-//               style={{
-//                 display: "flex",
-//                 flexWrap: "wrap",
-//                 justifyContent: "space-around",
-//               }}
-//             >
-//               {userData.posts && userData.posts.length > 0 ? (
-//                 userData.posts.map((post) => (
-//                   <div
-//                     key={post._id}
-//                     style={{
-//                       width: "23%",
-//                       height: "350px",
-//                       border: "2px solid black",
-//                       marginBottom: "20px",
-//                     }}
-//                   >
-//                     <img
-//                       style={{ width: "80%", height: "70%" }}
-//                       src={post.image}
-//                       alt={post.caption}
-//                     />
-//                     <p>Caption: {post.caption}</p>
-//                   </div>
-//                 ))
-//               ) : (
-//                 <p>No posts available.</p>
-//               )}
-//             </div>
-//           </div>
-//         )
-//       )}
-//     </div>
-//   );
-// }
-
-// export default UserProfile;
-
-
-import { useContext, useEffect, useState } from "react";
-import Api from "../axiosConfig";
-import { AuthContext } from "../context/auth.context";
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/auth.context';
+import Api from '../axiosConfig';
+import '../style/userprofile.css';
 
 function UserProfile() {
-  const [userProfile, setUserProfile] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AuthContext);
 
-  async function GetUserProfile() {
-    setLoading(true);
-    try {
-      const response = await Api.post("/user/profile", {
-        userId: state?.user?.userId,
-      });
-      if (response.data.success) {
-        setLoading(false);
-        setUserProfile(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    const fetchUserPosts = async () => {
+      setLoading(true);
+      try {
+        const response = await Api.post('/auth/user-posts', {
+          userId: state?.user?.userId,
+        });
+        if (response.data.success) {
+          setUserPosts(response.data.posts);
+        } else {
+          console.error('Failed to fetch posts');
+        }
+      } catch (error) {
+        console.error('Error fetching user posts', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (state) {
-      GetUserProfile();
+      fetchUserPosts();
     }
   }, [state]);
 
   return (
-    <div>
-      <h1>User Profile</h1>
+    <div className="userprofile">
+      <div className="userprofiletop">
+        <img className="user-profile-photo" src={state?.user?.profilePicture} alt="Profile" />
+        <span className="user-profile-name"> {state?.user?.username}</span>
+      </div>
       {loading ? (
-        <h1>Loading...</h1>
+        <div>Loading...</div>
       ) : (
-        userProfile && (
-          <div>
-            <h2>{userProfile.username}</h2>
-            <p>Name: {userProfile.name}</p>
-            <h3>Posts:</h3>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-around",
-              }}
-            >
-              {userProfile.posts.map((post) => (
-                <div
-                  key={post._id}
-                  style={{
-                    width: "23%",
-                    height: "350px",
-                    border: "2px solid black",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <img
-                    style={{ width: "80%", height: "70%" }}
-                    src={post.image}
-                    alt={post.title}
-                  />
-                  <p>Title: {post.title}</p>
-                  <p>Description: {post.description}</p>
-                </div>
-              ))}
+        <div className="userposts">
+          {userPosts.map((post) => (
+            <div key={post._id} className="post">
+              <img src={post.image} alt={post.caption} className="post-image" />
+          
             </div>
-          </div>
-        )
+          ))}
+        </div>
       )}
     </div>
   );
 }
 
 export default UserProfile;
+
+
+
+
+
+
+
+
+
+
+// import { useContext, useEffect, useState } from "react";
+// import { AuthContext } from "../context/auth.context";
+// import Api from "../axiosConfig";
+// import"../style/userprofile.css";
+
+
+// function UserProfile() {
+//   const [userprofile, setUserProfile] = useState([]);
+//   console.log(userprofile, "userprofile");
+//   const [loading, setLoading] = useState(false);
+//   const { state } = useContext(AuthContext);
+
+//   async function GetUserProfile() {
+//     // alert("Hi from get Products.");
+//     setLoading(true);
+//     try {
+//       const response = await Api.post("/post/profile", {
+//         userId:state?.user?.userId,
+//       }); // change
+//       if (response.data.success) {
+//         //   console.log(response.data);
+//         setLoading(false);
+//         setUserProfile(response.data.posts); // change
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+
+//   useEffect(() => {
+//     // api call to backend
+//     if (state) {
+//       GetUserProfile();
+//     }
+//   }, [state]);
+
+//   return (
+//     <div>
+//        <div className="userprofiletop">
+//                 <img className="user-profile-photo"   />   
+//                 {/* src={post.author.profilePhoto} */}
+//                {/* alt={post.author.username} */}
+//                 <span className="user-profile-name"> {state?.user?.username}</span>
+//               </div>
+//       {loading ? (
+//         <div>
+//           <h1>Loading...</h1>
+         
+//         </div>
+//       ) : (
+//         <div
+//           style={{
+//             display: "flex",
+//             flexWrap: "wrap",
+//             justifyContent: "space-around",
+//           }}
+//         >
+//           {userprofile.map((post) => (
+//             <div
+//               style={{
+//                 width: "23%",
+//                 height: "350px",
+//                 border: "2px solid black",
+//                 marginBottom: "20px",
+//               }}
+//             >
+//               <img
+//                 style={{ width: "80%", height: "70%" }}
+//                 src={post.author.image}
+//               />
+//               <p>name :{post.author.name}</p>
+//             </div>
+//           ))}
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+
+// export default UserProfile;
 

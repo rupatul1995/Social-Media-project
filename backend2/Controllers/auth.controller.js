@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../Models/auth.model.js";
+import { Post } from "../Models/post.model.js";
 
 
 export const Login = async (req, res) => {
@@ -156,19 +157,45 @@ export const getUserProfile = async (req, res) => {
 };
 
 
-export const getSuggestedUsers = async (req, res) => {
-    try {
-        const suggestedUsers = await User.find({ _id: { $ne: req.id } }).select("-password");
-        if (!suggestedUsers) {
-            return res.status(400).json({
-                message: 'Currently do not have any users',
-            })
-        };
-        return res.status(200).json({
-            success: true,
-            users: suggestedUsers
-        })
-    } catch (error) {
-        console.log(error);
-    }
+export const getUserPosts = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    console.log(userId);
+    // Fetch posts created by the user
+    const posts = await Post.find({ author: userId });
+
+    return res.json({ success: true, posts });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, error: error.message });
+  }
+};
+
+
+
+export const GetAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, 'username _id'); // Retrieve usernames
+    res.json({ success: true, users });
+  } catch (error) {
+    console.log(error, "error");
+    return res.json({ success: false, error: error.message });
+  }
+};
+
+
+
+export const Getsearch = async (req, res) => {
+  try {
+    const { searchedWord } = req.body;
+
+    const searchedUsers = await User.find({
+      $or:[{ingredients: { $regex: searchedWord, $options: "i" }}]
+      
+    });
+    res.json({ success: true, searchedUsers });
+  } catch (error) {
+    console.log(error, "error");
+    return res.json({ error: error, success: false });
+  }
 };

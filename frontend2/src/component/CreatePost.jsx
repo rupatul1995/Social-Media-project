@@ -25,7 +25,7 @@ const CreatePost = () => {
         });
         if (response.data.success) {
           setPostData({ caption: '', image: '' });
-          navigate('/');
+          navigate('/home');
           toast.success(response.data.message);
         } else {
           toast.error(response.data.error);

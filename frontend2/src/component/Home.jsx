@@ -7,24 +7,47 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [likedPosts, setLikedPosts] = useState({});
+
+  const [searchTerm, setSearchTerm] = useState('');
   const { state, dispatch } = useContext(AuthContext);
   const router = useNavigate();
 
+  // Fetch posts
   const getPosts = async () => {
     setLoading(true);
     try {
       const response = await Api.get('/post/all');
       if (response.data.success) {
         setAllPosts(response.data.posts);
+        const userLikes = {};
+        response.data.posts.forEach(post => {
+          userLikes[post._id] = post.likes.includes(state?.user?._id);
+        });
+        setLikedPosts(userLikes);
       }
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
       setLoading(false);
     }
   };
 
+  // Fetch users
+  const getUsers = async () => {
+    try {
+      const response = await Api.get('/auth/allusers');
+      if (response.data.success) {
+        setAllUsers(response.data.users);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Handle logout
   const handleLogout = async () => {
     try {
       const response = await Api.post('/auth/logout');
@@ -40,123 +63,151 @@ const Home = () => {
     }
   };
 
+  async function handleSearch() {
+    try {
+        const response = await Api.post("/auth/search", { searchedWord: searchTerm });
+        if (response.data.success) {
+            dispatch({ type: "SET_SEARCH_RESULTS", payload: response.data.searchedrecipes });
+            router("/home");
+        } else {
+            toast.error("Search failed.");
+        }
+    } catch (error) {
+        toast.error("Failed to search.");
+    }
+}
+
+  // Handle like
+  const handleLike = async (postId) => {
+    try {
+      const response = await Api.post('/post/like', { postId, userId: state?.user?.userId });
+      if (response.data.success) {
+        setLikedPosts((prev) => ({
+          ...prev,
+          [postId]: !prev[postId]
+        }));
+        // Optionally update the likes count
+        setAllPosts((prevPosts) => 
+          prevPosts.map(post => 
+            post._id === postId ? { ...post, likes: response.data.likes } : post
+          )
+        );
+      }
+    } catch (error) {
+      toast.error('Failed to like post.');
+    }
+  };
+
   useEffect(() => {
     getPosts();
+    getUsers();
   }, []);
 
   return (
     <div className="mainhomepage">
+      <div className="navbar">
+      <h1 className="logo">Instagram</h1>
 
-    <div className="navbar">
-    <h1 className="logo">Instagram</h1>
+<div className="Home">
+  <div className="Home1">
+    <i className="fa-solid fa-house"></i>
+  </div>
+  <div className="Home2">
+    <p onClick={() => router("/")}>Home</p>
+  </div>
+</div>
 
-   <div className="Home">
-   <div className="Home1">
-   <i class="fa-solid fa-house"></i>
-   </div>
-   <div className="Home2">
-    <p onClick={() => router("/")}>Home
-    </p>
-   </div>
-   </div>
+<div className="Search">
+  <div className="Search1">
+    <i className="fa-solid fa-magnifying-glass"></i>
+  </div>
   
-  
-   <div className="Search">
-   <div className="Search1">
-   <i class="fa-solid fa-magnifying-glass"></i>
-   </div>
-   <div className="Search2">
+  <div className="Search2">
+  <input
+        type="text"
+         placeholder="Search recipes..."
+          value={searchTerm}
+           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+       />
+      <i className="fa-solid fa-magnifying-glass" onClick={handleSearch}></i>
     <p>Search</p>
-   </div>
-   </div>
-    
-   <div className="Explore">
-   <div className="Explore1">
-    <i class="fa-regular fa-compass"></i>
-   </div>
-   <div className="Explore2">
+  </div>
+</div>
+
+<div className="Explore">
+  <div className="Explore1">
+    <i className="fa-regular fa-compass"></i>
+  </div>
+  <div className="Explore2">
     <p>Explore</p>
-   </div>
-   </div>
-   
-   <div className="Reels">
-   <div className="Reels1">
-   <i class="fa-solid fa-play"></i>
-    
-   </div>
-   <div className="Reels2">
+  </div>
+</div>
+
+<div className="Reels">
+  <div className="Reels1">
+    <i className="fa-solid fa-play"></i>
+  </div>
+  <div className="Reels2">
     <p>Reels</p>
-   </div>
-   </div>
+  </div>
+</div>
 
-
-   <div className="Messages">
-   <div className="Messages1">
-   <i class="fa-solid fa-message"></i>
-    
-   </div>
-   <div className="Messages2">
+<div className="Messages">
+  <div className="Messages1">
+    <i className="fa-solid fa-message"></i>
+  </div>
+  <div className="Messages2">
     <p>Messages</p>
-   </div>
-   </div>
-   
-   <div className="Notifications">
-   <div className="Notifications1">
-   <i class="fa-regular fa-heart"></i>
-    
-   </div>
-   <div className="Notifications2">
+  </div>
+</div>
+
+<div className="Notifications">
+  <div className="Notifications1">
+    <i className="fa-regular fa-heart"></i>
+  </div>
+  <div className="Notifications2">
     <p>Notifications</p>
-   </div>
-   </div>
+  </div>
+</div>
 
+<div className="Create">
+  <div className="Create1">
+    <i className="fa-regular fa-square-plus"></i>
+  </div>
+  <div className="Create2">
+    <p onClick={() => router("/create-post")}>Create</p>
+  </div>
+</div>
 
-   
-   <div className="Create">
-   <div className="Create1">
-   <i class="fa-regular fa-square-plus"></i>
-    
-   </div>
-   <div className="Create2">
-    <p onClick={() => router("/add-post")}>Create</p>
-   </div>
-   </div>
-
-   
-   <div className="Profile" onClick={() => router("/profile")}>
-   <div className="Profile1">
-   <i class="fa-regular fa-user"></i>
-    
-   </div>
-   <div className="Profile2">
+<div className="Profile" onClick={() => router("/profile")}>
+  <div className="Profile1">
+    <i className="fa-regular fa-user"></i>
+  </div>
+  <div className="Profile2">
     <p>Profile</p>
-   </div>
-   </div>
+  </div>
+</div>
 
-
-   
-   <div className="More">
-   <div className="More1">
-   <i class="fa-solid fa-bars"></i>
-    
-   </div>
-   <div className="More2">
+<div className="More">
+  <div className="More1">
+    <i className="fa-solid fa-bars"></i>
+  </div>
+  <div className="More2">
     <p>More</p>
-   </div>
-   </div>
+  </div>
+</div>
 
-   <div className="logout">
-   <div className="logout1">
-   <i class="fa-regular fa-user"></i>
-    
-   </div>
-   <div className="logout2" onClick={handleLogout}>
+<div className="logout">
+  <div className="logout1">
+    <i className="fa-regular fa-user"></i>
+  </div>
+  <div className="logout2" onClick={handleLogout}>
     <p>Logout</p>
-   </div>
-   </div>
+  </div>
+  </div>
 
-    </div>
-
+      </div>
 
       {loading ? (
         <div className="instagramlogo">Loading...</div>
@@ -166,51 +217,48 @@ const Home = () => {
             <div
               key={post._id}
               className="postimage"
-              onClick={() => router(`/post/${post._id}`)}
             >
-
-            <div className="postHeader">
-                <img className="profilePhoto" src={post.author.profilePhoto}  />   
-               {/* alt={post.author.username} */}
+              <div className="postHeader">
+                <img className="profilePhoto" src={post.author.profilePhoto} alt={post.author.username} />
                 <span className="username">{post.author.username}</span>
               </div>
-
               <img className="postimagesize" src={post.image} alt={post.caption} />
               <div className="postFooter">
-                <div className="likeSection">
-                  <i className="fa-regular fa-heart"></i>
-                  <span className="likesCount">{post.likes} likes</span>
+                <div className="likeSection" onClick={() => handleLike(post._id)}>
+                  <i
+                    className={`fa-regular fa-heart ${likedPosts[post._id] ? 'liked' : 'not-liked'}`}
+                  ></i>
+                  <span className="likesCount">{post.likes.length} likes</span>
                 </div>
                 <div className="caption">
-                <p className="caption1">{post.caption}</p>
+                  <p className="caption1">{post.caption}</p>
                 </div>
               </div>
             </div>
-
           ))}
         </div>
       )}
+
       <div className="SuggestDiv">
-        {/* <h1> {state?.user?.username}</h1> */}
         <div className="postHeaderrightside">
-                <img className="profilePhoto"   />   
-                {/* src={post.author.profilePhoto} */}
-               {/* alt={post.author.username} */}
-                <span className="usernameright"> {state?.user?.username}</span>
-              </div>
+          <img className="profilePhoto" src={state?.user?.profilePhoto} alt={state?.user?.username} />
+          <span className="usernameright">{state?.user?.username}</span>
+        </div>
         <h1>Suggested for you</h1>
-        <label>usernames following</label>
+        {allUsers.length > 0 ? (
+          <div className="suggestedUsersList">
+            {allUsers.map((user) => (
+              <div key={user._id} className="suggestedUser">
+                <span className="username">{user.username}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No users found.</p>
+        )}
       </div>
     </div>
   );
 };
 
 export default Home;
-
-
-
-
-
-
-
-

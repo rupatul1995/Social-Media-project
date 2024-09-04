@@ -1,10 +1,11 @@
 import { Post } from '../Models/post.model.js';
-import User from '../Models/auth.model.js';
+
 
 export const GetAllPosts = async (req, res) => {
   try {
     const posts = await Post.find({})
-      .populate('author', 'username') // Populate author with username
+      .populate('author', 'username profilePhoto') // Adjust as needed to include author info
+      .sort({ createdAt: -1 }) // Sort posts by creation date in descending order
       .exec();
     res.json({ success: true, posts });
   } catch (error) {
@@ -48,6 +49,134 @@ export const getUserProfile = async (req, res) => {
     return res.json({ error: error, success: false });
   }
 };
+
+
+
+export const GetLatestPosts = async (req, res) => {
+  try {
+    const latestPosts = await Post.aggregate([
+      {
+        $sort: { createdAt: -1 } // Sort posts by creation date in descending order
+      },
+      {
+        $limit: 4 // Limit the number of posts to 4
+      },
+      {
+        $lookup: {
+          from: 'users', // The collection where user data is stored
+          localField: 'author',
+          foreignField: '_id',
+          as: 'authorDetails'
+        }
+      },
+      {
+        $unwind: {
+          path: '$authorDetails',
+          preserveNullAndEmptyArrays: true // Include posts even if no author details are found
+        }
+      },
+      {
+        $lookup: {
+          from: 'comments', // The collection where comments are stored
+          localField: '_id',
+          foreignField: 'postId',
+          as: 'comments'
+        }
+      },
+      {
+        $addFields: {
+          averageLikes: {
+            $cond: {
+              if: { $gt: [{ $size: '$likes' }, 0] },
+              then: { $size: '$likes' },
+              else: 0
+            }
+          },
+          commentCount: { $size: '$comments' } // Add a field for the number of comments
+        }
+      },
+      {
+        $project: {
+          'authorDetails.password': 0, // Exclude sensitive information
+          'authorDetails.email': 0, // Exclude sensitive information
+          comments: 0 // Exclude comments if you don’t want to send them in the response
+        }
+      }
+    ]);
+
+    res.json({ success: true, posts: latestPosts });
+  } catch (error) {
+    res.json({ error: error.message, success: false });
+  }
+};
+
+
+
+
+
+export const LikePost = async (req, res) => {
+  try {
+    const { postId, userId } = req.body;
+
+    if (!postId || !userId) {
+      return res.json({ success: false, error: 'Post ID and User ID are required.' });
+    }
+
+    // Check if the user has already liked the post
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.json({ success: false, error: 'Post not found.' });
+    }
+
+    const hasLiked = post.likes.includes(userId);
+    
+    if (hasLiked) {
+      // If already liked, remove the like
+      post.likes.pull(userId);
+    } else {
+      // If not liked, add the like
+      post.likes.push(userId);
+    }
+
+    await post.save();
+    
+    res.json({ success: true, likes: post.likes.length });
+  } catch (error) {
+    res.json({ error: error.message, success: false });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // export const getUserProfile = async (req, res) => {
