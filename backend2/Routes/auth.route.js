@@ -10,6 +10,7 @@ router.get('/get-current-user', getCurrentUser);
 router.post("/logout", Logout);
 router.post('/user-posts', isAuthenticated, getUserPosts);
 router.get('/allusers', GetAllUsers);
-router.get('/search', Getsearch);
+router.post('/search', Getsearch);
+
 
 export default router;

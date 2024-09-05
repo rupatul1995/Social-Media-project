@@ -7,6 +7,7 @@ import CreatePost from './component/CreatePost';
 import Home from './component/Home';
 import UserProfile from './component/UserProfile';
 import GetSuggested from './component/GetSuggested';
+import SearchResults from './component/SearchResults';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
          <Route path="/create-post" element={<CreatePost/>}/> 
          <Route path="/profile" element={<UserProfile/>} /> 
          <Route path="/all-users" element={GetSuggested} />
+        <Route path="/search-results" element={<SearchResults />} />
         
     
         </Routes>

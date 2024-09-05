@@ -65,17 +65,18 @@ const Home = () => {
 
   async function handleSearch() {
     try {
-        const response = await Api.post("/auth/search", { searchedWord: searchTerm });
-        if (response.data.success) {
-            dispatch({ type: "SET_SEARCH_RESULTS", payload: response.data.searchedrecipes });
-            router("/home");
-        } else {
-            toast.error("Search failed.");
-        }
+      const response = await Api.post("/search", { searchedWord: searchTerm });
+      if (response.data.success) {
+        dispatch({ type: "SET_SEARCH_RESULTS", payload: response.data.searchedUsers });
+        router("/search-results"); // Redirect to search results page or handle the result here
+      } else {
+        toast.error("Search failed.");
+      }
     } catch (error) {
-        toast.error("Failed to search.");
+      toast.error("Failed to search.");
     }
-}
+  }
+  
 
   // Handle like
   const handleLike = async (postId) => {
@@ -121,20 +122,18 @@ const Home = () => {
   <div className="Search1">
     <i className="fa-solid fa-magnifying-glass"></i>
   </div>
-  
   <div className="Search2">
-  <input
-        type="text"
-         placeholder="Search recipes..."
-          value={searchTerm}
-           onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-       />
-      <i className="fa-solid fa-magnifying-glass" onClick={handleSearch}></i>
+    <input
+      type="text"
+      placeholder="Search usernames..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+    />
+    <i className="fa-solid fa-magnifying-glass" onClick={handleSearch}></i>
     <p>Search</p>
   </div>
 </div>
-
 <div className="Explore">
   <div className="Explore1">
     <i className="fa-regular fa-compass"></i>
