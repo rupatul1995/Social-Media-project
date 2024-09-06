@@ -63,6 +63,10 @@
     padding-left: 15px;
    
 }
+
+.Search{
+    box-shadow: inset;
+}
 .Search1{
     width:"40%";
     height: 40px;
@@ -71,10 +75,20 @@
     padding-top: 12px;
 }
 .Search2{
-    width:"40%";
+    width:"45%";
+    height: 30px;
+    border: 2px solid rgb(225, 228, 224);
     margin-left: 15px;
     font-size: 18px;
+    margin-top: 8px;
+    border-radius: 10px;
     font-weight: 500;
+}
+
+.Search2 >input{
+    border: none;
+    outline: none;
+
 }
 
 
@@ -352,7 +366,7 @@
 
 .caption {
     width: 100%;
-    height: 30px;
+    height: 50px;
     font-size: 14px;
     border: 2px solid black;
 }
@@ -488,6 +502,65 @@
     margin: 10px 0;
     color: #333;
   }
+
+  /* Add this to your existing CSS file */
+.search-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 20%;
+  max-width: 600px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-result-item .profilePhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.search-result-item .username {
+  font-size: 16px;
+}
+
   
  
 
