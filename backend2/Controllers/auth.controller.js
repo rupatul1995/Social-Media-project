@@ -187,10 +187,16 @@ export const GetAllUsers = async (req, res) => {
 export const Getsearch = async (req, res) => {
   try {
     const { searchedWord } = req.body;
+    // Validate the input
+    if (!searchedWord) {
+      return res.json({ success: false, error: "Search term is required." });
+    }
 
+    // Search for users by username
     const searchedUsers = await User.find({
-      username: { $regex: searchedWord, $options: "i" } // Search usernames with case-insensitive regex
+      username: { $regex: searchedWord, $options: "i" } // Case-insensitive search
     });
+
     res.json({ success: true, searchedUsers });
   } catch (error) {
     console.log(error, "error");

@@ -14,6 +14,7 @@ function App() {
     
 
     <div className="App">
+     
       <Routes>
         
         
@@ -22,7 +23,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
          <Route path="/create-post" element={<CreatePost/>}/> 
          <Route path="/profile" element={<UserProfile/>} /> 
-         <Route path="/all-users" element={GetSuggested} />
+         <Route path="/all-users" element={<GetSuggested/>} />
         <Route path="/search-results" element={<SearchResults />} />
         
     

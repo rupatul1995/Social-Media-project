@@ -31,7 +31,7 @@ const Register = () => {
             password: "",
             username:"",
           });
-          router("/login");
+          router("/");
           toast.success(response.data.message);
         }
       } else {

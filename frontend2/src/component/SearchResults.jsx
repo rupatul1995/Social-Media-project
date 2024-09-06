@@ -20,7 +20,9 @@ const SearchResults = () => {
       }
     };
 
-    fetchResults();
+    if (searchTerm) {
+      fetchResults();
+    }
   }, [searchTerm]);
 
   return (

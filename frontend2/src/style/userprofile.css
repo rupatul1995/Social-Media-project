@@ -12,8 +12,14 @@
     color: gray;
   }
   
-  .user-posts {
+  .userposts {
+    width: 60%;
     margin-top: 20px;
+    border: 2px solid black;
+    display: flex ;
+    flex-wrap: wrap;
+    margin-left: 390px;
+
   }
   
   .user-posts .post {
@@ -21,7 +27,7 @@
   }
   
   .user-posts .post img {
-    width: 100%;
+    width: 90%;
     max-width: 500px;
     height: auto;
   }
@@ -33,10 +39,11 @@
   .userprofiletop{
     height: 50px;
     display: flex;
-    height: 60px;
+    height: 250px;
     align-items: center;
     padding-top: 10px;
     font-size: 22px;
+    margin-left: 390px;
     border-bottom: 1px solid #ddd;
     border: 2px solid rgb(210, 37, 37);
 }
@@ -51,4 +58,10 @@
 .user-profile-name{
   
   font-weight: bold;
+}
+
+.post-image{
+  width: 100%;
+  height: 300px;
+  border: 2px solid black;
 }
