@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { followOrUnfollow, GetAllUsers, getCurrentUser,    Getsearch,    getUserPosts,    Login, Logout, Register} from "../Controllers/auth.controller.js";
+import { followUser, GetAllUsers, getCurrentUser,    Getsearch,    getUserPosts,    Login, Logout, Register} from "../Controllers/auth.controller.js";
 import isAuthenticated from "../Middlewares/isAutheticated.js";
 
 const router = Router();
@@ -11,8 +11,7 @@ router.post("/logout", Logout);
 router.post('/user-posts', isAuthenticated, getUserPosts);
 router.get('/allusers', GetAllUsers);
 router.post('/search', Getsearch);
-router.post('/follow/:id', isAuthenticated, followOrUnfollow);
-router.post('/unfollow/:id', isAuthenticated, followOrUnfollow);
+router.post('/follow', followUser);
 
 
 

@@ -562,6 +562,48 @@
 }
 
   
- 
+.FollowSection {
+    margin-top: 20px;
+  }
+  
+  .FollowSection h2 {
+    font-size: 1.5rem;
+  }
+  
+  .FollowSection ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .FollowSection li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .FollowSection .profilePhoto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .FollowSection .username {
+    flex-grow: 1;
+  }
+  
+  .FollowSection button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
 
   

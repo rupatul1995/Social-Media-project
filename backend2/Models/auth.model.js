@@ -7,8 +7,8 @@ const userSchema = new Schema({
   password: { type: String, required: true },
   profilePicture:{ type: String, default: "" },
   bio:{type : String  ,default: ""},
-  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  followers: [{ type: mongoose.Schema.Types.ObjectId }],
+  following: [{ type: mongoose.Schema.Types.ObjectId}],
   posts:[{type:mongoose.Schema.ObjectId ,ref:"post"}],
 });
 

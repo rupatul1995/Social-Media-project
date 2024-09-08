@@ -12,6 +12,7 @@ const Register = () => {
     email: "",
     password: "",
     username:"",
+    profilePicture:"",
   });
 
   console.log(userData, "userData");
@@ -22,7 +23,7 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      if (userData.name && userData.email && userData.password && userData.username ) {
+      if (userData.name && userData.email && userData.password && userData.username && userData.profilePicture ) {
         const response = await Api.post("/auth/register", { userData });
         if (response.data.success) {
           setUserData({
@@ -30,6 +31,7 @@ const Register = () => {
             email: "",
             password: "",
             username:"",
+            profilePicture:"",
           });
           router("/");
           toast.success(response.data.message);
@@ -86,6 +88,17 @@ const Register = () => {
           name="password"
           value={userData.password}
           placeholder="Password"
+        />
+        <br />
+
+        
+        <input
+          className="inputs"
+          type="url"
+          onChange={handleChange}
+          name="profilePicture"
+          value={userData.profilePicture}
+          placeholder="profilePicture"
         />
         <br />
        

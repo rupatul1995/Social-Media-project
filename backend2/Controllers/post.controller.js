@@ -164,21 +164,6 @@ export const LikePost = async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // export const getUserProfile = async (req, res) => {
 //   try {
 //     const { userId } = req.params;

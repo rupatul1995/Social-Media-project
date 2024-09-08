@@ -261,7 +261,7 @@ const Home = () => {
             <span className="close-btn" onClick={() => setIsPopupVisible(false)}>×</span>
             <h2>Search Results</h2>
             {searchResults.length > 0 ? (
-              <div className="search-results">
+              <div className="search">
                 {searchResults.map(user => (
                   <div key={user._id} className="search-result-item">
                     <div className="profilePhoto placeholder">
