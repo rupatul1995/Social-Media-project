@@ -71,7 +71,7 @@
 /* Container for the user profile */
 .userprofile {
   width: 80%;
-  height: 700px;
+  /* height: 700px; */
   border: 2px solid green;
   display: flex;
   flex-direction: column;
@@ -96,7 +96,7 @@
 /* Profile photo styles */
 .user-profile-photo {
   width: 20%;
-  height: 190px;
+  height: 19 0px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #ddd;
