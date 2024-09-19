@@ -160,19 +160,19 @@ export const getUserProfile = async (req, res) => {
 };
 
 
-export const getUserPosts = async (req, res) => {
-  try {
-    const { userId } = req.body;
-    console.log(userId);
-    // Fetch posts created by the user
-    const posts = await Post.find({ author: userId });
+// export const getUserPosts = async (req, res) => {
+//   try {
+//     const { userId } = req.body;
+//     console.log(userId);
+//     // Fetch posts created by the user
+//     const posts = await Post.find({ author: userId });
 
-    return res.json({ success: true, posts });
-  } catch (error) {
-    console.log(error);
-    return res.json({ success: false, error: error.message });
-  }
-};
+//     return res.json({ success: true, posts });
+//   } catch (error) {
+//     console.log(error);
+//     return res.json({ success: false, error: error.message });
+//   }
+// };
 
 
 
@@ -203,38 +203,86 @@ export const Getsearch = async (req, res) => {
 };
 
 
-// Follow user
+
+
+
+
+export const updateBio = async (req, res) => {
+  try {
+    const { userId, bio } = req.body;
+    if (!bio) return res.json({ success: false, error: "Bio cannot be empty" });
+
+    const updatedUser = await User.findByIdAndUpdate(userId, { bio }, { new: true });
+    if (!updatedUser) return res.json({ success: false, error: "User not found" });
+
+    res.json({ success: true, bio: updatedUser.bio });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+};
+
+export const updateProfilePicture = async (req, res) => {
+  try {
+    const { userId, profilePicture } = req.body;
+    if (!profilePicture) return res.json({ success: false, error: "Profile picture URL cannot be empty" });
+
+    const updatedUser = await User.findByIdAndUpdate(userId, { profilePicture }, { new: true });
+    if (!updatedUser) return res.json({ success: false, error: "User not found" });
+
+    res.json({ success: true, profilePicture: updatedUser.profilePicture });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+};
+
 export const followUser = async (req, res) => {
   try {
-    const { userIdToFollow } = req.body;
-    const { userId } = req.body;
+    const { userId, followUserId } = req.body;
 
-    // Add userId to the following list of the current user
-    await User.findByIdAndUpdate(userId, { $addToSet: { following: userIdToFollow } });
+    if (userId === followUserId) return res.json({ success: false, error: "Cannot follow yourself" });
 
-    // Add current user ID to the followers list of the target user
-    await User.findByIdAndUpdate(userIdToFollow, { $addToSet: { followers: userId } });
+    await User.findByIdAndUpdate(userId, { $addToSet: { following: followUserId } });
+    await User.findByIdAndUpdate(followUserId, { $addToSet: { followers: userId } });
 
-    res.json({ success: true, message: "Followed successfully." });
+    res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    console.error(error);
+    res.json({ success: false, error: error.message });
   }
 };
 
-// Unfollow user
 export const unfollowUser = async (req, res) => {
   try {
-    const { userIdToUnfollow } = req.body;
-    const { userId } = req.user;
+    const { userId, unfollowUserId } = req.body;
 
-    // Remove userId from the following list of the current user
-    await User.findByIdAndUpdate(userId, { $pull: { following: userIdToUnfollow } });
+    if (userId === unfollowUserId) return res.json({ success: false, error: "Cannot unfollow yourself" });
 
-    // Remove current user ID from the followers list of the target user
-    await User.findByIdAndUpdate(userIdToUnfollow, { $pull: { followers: userId } });
+    await User.findByIdAndUpdate(userId, { $pull: { following: unfollowUserId } });
+    await User.findByIdAndUpdate(unfollowUserId, { $pull: { followers: userId } });
 
-    res.json({ success: true, message: "Unfollowed successfully." });
+    res.json({ success: true });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    console.error(error);
+    res.json({ success: false, error: error.message });
   }
 };
+
+export const getUserPosts = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const posts = await Post.find({ author: userId });
+
+    res.json({ success: true, posts });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.message });
+  }
+};
+
+
+
+
+
+

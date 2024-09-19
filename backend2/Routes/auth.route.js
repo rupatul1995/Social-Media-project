@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { followUser, GetAllUsers, getCurrentUser,    Getsearch,    getUserPosts,    Login, Logout, Register} from "../Controllers/auth.controller.js";
-import isAuthenticated from "../Middlewares/isAutheticated.js";
+import { followUser, GetAllUsers, getCurrentUser,    Getsearch,    getUserPosts,    getUserProfile,    Login, Logout, Register
+} from "../Controllers/auth.controller.js";
+// import isAuthenticated from "../Middlewares/isAutheticated.js";
 
 const router = Router();
 
@@ -12,6 +12,10 @@ router.post('/user-posts', isAuthenticated, getUserPosts);
 router.get('/allusers', GetAllUsers);
 router.post('/search', Getsearch);
 router.post('/follow', followUser);
+router.get('/user/:userId', isAuthenticated, getUserProfile);
+
+
+
 
 
 
